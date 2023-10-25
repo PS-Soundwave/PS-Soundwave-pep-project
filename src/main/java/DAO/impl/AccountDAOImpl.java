@@ -33,7 +33,6 @@ public class AccountDAOImpl implements IAccountDAO {
 
             if (rs.next()) {
                 return new Account(rs.getInt(1), username, password);
-                
             }
 
             return null;
