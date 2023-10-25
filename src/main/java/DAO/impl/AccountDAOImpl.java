@@ -19,15 +19,15 @@ public class AccountDAOImpl implements IAccountDAO {
     private final Logger logger = LoggerFactory.getLogger(AccountDAOImpl.class);
 
     @Override
-    public Account addAccount(Account account) {
+    public Account addAccount(String username, String password) {
         Connection conn = ConnectionUtil.getConnection();
 
         try {
             String sql = "INSERT INTO account(username, password) VALUES (?, ?);";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1, account.getUsername());
-            statement.setString(2, account.getPassword());
+            statement.setString(1, username);
+            statement.setString(2, password);
 
             int res = statement.executeUpdate();
             if (res != 1) {
@@ -36,7 +36,7 @@ public class AccountDAOImpl implements IAccountDAO {
 
             ResultSet rs = statement.getGeneratedKeys();
             rs.next();
-            return new Account(rs.getInt(1), account.getUsername(), account.getPassword());
+            return new Account(rs.getInt(1), username, password);
         } catch (SQLException e) {
             StringWriter str = new StringWriter();
             e.printStackTrace(new PrintWriter(str));

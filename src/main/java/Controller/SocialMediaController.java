@@ -26,7 +26,7 @@ public class SocialMediaController {
     private void postRegister(Context ctx) {
         Account account = ctx.bodyAsClass(Account.class);
 
-        account = service.createAccount(account);
+        account = service.createAccount(account.username, account.password);
 
         if (account == null) {
             ctx.status(400);

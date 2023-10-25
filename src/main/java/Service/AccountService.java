@@ -14,12 +14,12 @@ public class AccountService {
      /*
       * Create a new account. Returns the account created including its id, or null if account creation failed.
       */
-     public Account createAccount(Account account) {
-        if (account.getUsername().equals("")) {
+     public Account createAccount(String username, String password) {
+        if (username.equals("")) {
             return null;
         }
 
-        if (!PasswordUtil.isValid(account.getPassword())) {
+        if (!PasswordUtil.isValid(password)) {
             return null;
         }
 
@@ -27,6 +27,6 @@ public class AccountService {
         better to let the DB reject the insert. This is a good candidate for transaction
         or procedure if fine-grained feedback is desired. */
 
-        return dao.addAccount(account);
+        return dao.addAccount(username, password);
      }
 }
