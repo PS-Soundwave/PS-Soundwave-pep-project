@@ -1,23 +1,16 @@
 package DAO.impl;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import DAO.IAccountDAO;
 import Model.Account;
 import Util.ConnectionUtil;
 
 public class AccountDAOImpl implements IAccountDAO {
-    private final Logger logger = LoggerFactory.getLogger(AccountDAOImpl.class);
-
     @Override
     public Account addAccount(String username, String password) {
         Connection conn = ConnectionUtil.getConnection();
@@ -39,9 +32,6 @@ public class AccountDAOImpl implements IAccountDAO {
 
             return null;
         } catch (SQLException e) {
-            StringWriter str = new StringWriter();
-            e.printStackTrace(new PrintWriter(str));
-            logger.warn(str.toString());
             return null;
         }
     }
@@ -65,9 +55,6 @@ public class AccountDAOImpl implements IAccountDAO {
 
             return null;
         } catch (SQLException e) {
-            StringWriter str = new StringWriter();
-            e.printStackTrace(new PrintWriter(str));
-            logger.warn(str.toString());
             return null;
         }
     }

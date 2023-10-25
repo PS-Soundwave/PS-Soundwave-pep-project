@@ -1,23 +1,16 @@
 package DAO.impl;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import DAO.IMessageDAO;
 import Model.Message;
 import Util.ConnectionUtil;
 
 public class MessageDAOImpl implements IMessageDAO {
-    private final Logger logger = LoggerFactory.getLogger(MessageDAOImpl.class);
-
     @Override
     public Message insertMessage(int posterId, String message, long timestamp) {
         Connection conn = ConnectionUtil.getConnection();
@@ -40,9 +33,6 @@ public class MessageDAOImpl implements IMessageDAO {
 
             return null;
         } catch (SQLException e) {
-            StringWriter str = new StringWriter();
-            e.printStackTrace(new PrintWriter(str));
-            logger.warn(str.toString());
             return null;
         }
     }
