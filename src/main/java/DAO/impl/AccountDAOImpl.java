@@ -29,6 +29,8 @@ public class AccountDAOImpl implements IAccountDAO {
             statement.setString(1, username);
             statement.setString(2, password);
 
+            statement.executeUpdate();
+
             ResultSet rs = statement.getGeneratedKeys();
 
             if (rs.next()) {
