@@ -9,12 +9,12 @@ import Util.PasswordUtil;
 In the interest of avoiding excessive architectural flourish, I have refrained. */
 
 public class AccountService {
-     private IAccountDAO dao = new AccountDAOImpl();
+    private IAccountDAO dao = new AccountDAOImpl();
 
      /*
       * Create a new account. Returns the account created including its id, or null if account creation failed.
       */
-     public Account createAccount(String username, String password) {
+    public Account createAccount(String username, String password) {
         if (username.equals("")) {
             return null;
         }
@@ -28,5 +28,12 @@ public class AccountService {
         or procedure if fine-grained feedback is desired. */
 
         return dao.addAccount(username, password);
-     }
+    }
+
+    /*
+    * Validate login. Returns the account if the login was successful, else null.
+    */
+    public Account validateLogin(String username, String password) {
+        return dao.selectAccountByLogin(username, password);
+    }
 }

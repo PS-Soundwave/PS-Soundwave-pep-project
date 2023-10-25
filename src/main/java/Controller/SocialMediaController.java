@@ -18,7 +18,9 @@ public class SocialMediaController {
      */
     public Javalin startAPI() {
         Javalin app = Javalin.create();
+
         app.post("/register", this::postRegister);
+        app.post("/login", this::postLogin);
 
         return app;
     }
@@ -30,6 +32,19 @@ public class SocialMediaController {
 
         if (account == null) {
             ctx.status(400);
+        }
+        else {
+            ctx.json(account);
+        }
+    }
+
+    private void postLogin(Context ctx) {
+        Account account = ctx.bodyAsClass(Account.class);
+
+        account = service.validateLogin(account.getUsername(), account.getPassword());
+
+        if (account == null) {
+            ctx.status(401);
         }
         else {
             ctx.json(account);
