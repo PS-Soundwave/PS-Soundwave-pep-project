@@ -12,9 +12,9 @@ public class AccountService {
     private IAccountDAO dao = new AccountDAOImpl();
 
     /*
-    * Create a new account.
+    * Creates a new account.
     * 
-    * Returns the account created including its id, or null if account creation failed.
+    * @return the account created including its id, or null if account creation failed.
     */
     public Account createAccount(String username, String password) {
         if (username.length() == 0) {
@@ -33,9 +33,9 @@ public class AccountService {
     }
 
     /*
-    * Validate login.
+    * Validates a login.
     * 
-    * Returns the account if the login was successful, else null.
+    * @return the account if the login was successful, else null.
     */
     public Account validateLogin(String username, String password) {
         return dao.selectAccountByLogin(username, password);
