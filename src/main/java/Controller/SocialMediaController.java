@@ -31,6 +31,8 @@ public class SocialMediaController {
         app.patch("/messages/{id}", this::patchMessage);
         app.delete("/messages/{id}", this::deleteMessage);
 
+        app.get("/accounts/{id}/messages", this::getMessagesFromUser);
+
         return app;
     }
 
@@ -126,6 +128,17 @@ public class SocialMediaController {
             else {
                 ctx.json(message);
             }
+        }
+    }
+
+    private void getMessagesFromUser(Context ctx) {
+        Validator<Integer> id = ctx.pathParamAsClass("id", Integer.class);
+
+        if (!id.hasValue()) {
+            ctx.status(404);
+        }
+        else {
+            ctx.json(messageService.getMessagesFromUser(id.get()));
         }
     }
 }

@@ -35,4 +35,9 @@ public interface IMessageDAO {
      * @return The message after being updated, or null if the message could not be updated or doesn't exist.
      */
     public Message updateMessage(int id, String message);
+
+    /*
+     * Gets all messages from user with given id.
+     */
+    public List<Message> selectMessagesByUser(int id);
 }

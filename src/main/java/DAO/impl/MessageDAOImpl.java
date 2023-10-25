@@ -140,4 +140,26 @@ public class MessageDAOImpl implements IMessageDAO {
             return null;
         }
     }
+
+    @Override
+    public List<Message> selectMessagesByUser(int id) {
+        List<Message> messages = new ArrayList<Message>();
+
+        Connection conn = ConnectionUtil.getConnection();
+
+        try {
+            String sql = "SELECT * FROM message WHERE posted_by = ?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, id);
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                messages.add(new Message(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getLong(4)));
+            }
+        } catch (SQLException e) {}
+
+        return messages;
+    }
 }

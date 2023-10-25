@@ -57,4 +57,13 @@ public class MessageService {
 
         return dao.updateMessage(id, message);
     }
+
+    /*
+     * Gets all messages posted by the user with the given id.
+     * 
+     * @return the users messages, or an empty list if the user does not exist.
+     */
+    public List<Message> getMessagesFromUser(int id) {
+        return dao.selectMessagesByUser(id);
+    }
 }
