@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,18 +23,20 @@ public class AccountDAOImpl implements IAccountDAO {
         Connection conn = ConnectionUtil.getConnection();
 
         try {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO account(username, password) VALUES (?, ?);");
+            String sql = "INSERT INTO account(username, password) VALUES (?, ?);";
+            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, account.getUsername());
             statement.setString(2, account.getPassword());
 
-            if (statement.executeUpdate() != 1) {
+            int res = statement.executeUpdate();
+            if (res != 1) {
                 return null;
             }
 
-            ResultSet rs = statement.getResultSet();
+            ResultSet rs = statement.getGeneratedKeys();
             rs.next();
-            return new Account(rs.getInt(1), rs.getString(2), rs.getString(3));
+            return new Account(rs.getInt(1), account.getUsername(), account.getPassword());
         } catch (SQLException e) {
             StringWriter str = new StringWriter();
             e.printStackTrace(new PrintWriter(str));
