@@ -1,5 +1,7 @@
 package Service;
 
+import java.util.List;
+
 import DAO.IMessageDAO;
 import DAO.impl.MessageDAOImpl;
 import Model.Message;
@@ -13,5 +15,9 @@ public class MessageService {
         }
 
         return dao.insertMessage(posterId, message, timestamp);
+    }
+
+    public List<Message> getMessages() {
+        return dao.selectMessages();
     }
 }

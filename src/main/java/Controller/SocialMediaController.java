@@ -23,6 +23,7 @@ public class SocialMediaController {
 
         app.post("/login", this::postLogin);
 
+        app.get("/messages", this::getMessages);
         app.post("/messages", this::postMessages);
 
         return app;
@@ -54,12 +55,15 @@ public class SocialMediaController {
         }
     }
 
+    private void getMessages(Context ctx) {
+        ctx.json(messageService.getMessages());
+    }
+
     private void postMessages(Context ctx) {
         Message message = ctx.bodyAsClass(Message.class);
 
         /* CM: *Really* no reason to be trusting the message is posted with a correct timestamp.
-         * Just done in case tests expect it to be respected.
-         */
+        Just done in case tests expect it to be respected. */
         message = messageService.postMessage(message.getPosted_by(), message.getMessage_text(), message.getTime_posted_epoch());
 
         if (message == null) {

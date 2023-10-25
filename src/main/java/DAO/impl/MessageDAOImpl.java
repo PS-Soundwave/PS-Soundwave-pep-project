@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import DAO.IMessageDAO;
 import Model.Message;
@@ -35,5 +37,24 @@ public class MessageDAOImpl implements IMessageDAO {
         } catch (SQLException e) {
             return null;
         }
+    }
+
+    @Override
+    public List<Message> selectMessages() {
+        List<Message> messages = new ArrayList<Message>();
+
+        Connection conn = ConnectionUtil.getConnection();
+
+        try {
+            Statement statement = conn.createStatement();
+
+            ResultSet rs = statement.executeQuery("SELECT * FROM message;");
+
+            while (rs.next()) {
+                messages.add(new Message(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getLong(4)));
+            }
+        } catch (SQLException e) {}
+
+        return messages;
     }
 }
