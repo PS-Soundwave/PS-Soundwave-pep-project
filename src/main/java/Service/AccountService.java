@@ -11,7 +11,7 @@ In the interest of avoiding excessive architectural flourish, I have refrained. 
 public class AccountService {
     private IAccountDAO dao = new AccountDAOImpl();
 
-    /*
+    /**
     * Creates a new account.
     * 
     * @return the account created including its id, or null if account creation failed.
@@ -32,7 +32,7 @@ public class AccountService {
         return dao.addAccount(username, password);
     }
 
-    /*
+    /**
     * Validates a login.
     * 
     * @return the account if the login was successful, else null.

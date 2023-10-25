@@ -9,7 +9,7 @@ import Model.Message;
 public class MessageService {
     private IMessageDAO dao = new MessageDAOImpl();
 
-    /*
+    /**
      * Posts a message as the user with id <code>posterId</code>, with contents <code>message</code> and epoch timestamp <code>timestamp</code>.
      */
     public Message postMessage(int posterId, String message, long timestamp) {
@@ -20,14 +20,14 @@ public class MessageService {
         return dao.insertMessage(posterId, message, timestamp);
     }
 
-    /*
+    /**
      * Gets all messages.
      */
     public List<Message> getMessages() {
         return dao.selectMessages();
     }
 
-    /*
+    /**
      * Gets message by id.
      * 
      * @return the message with the given id, or null if a message with the given id does not exist.
@@ -36,7 +36,7 @@ public class MessageService {
         return dao.selectMessage(id);
     }
 
-    /*
+    /**
      * Deletes message by id.
      * 
      * @return the message deleted, or null if a message with the given id does not exist.
@@ -45,7 +45,7 @@ public class MessageService {
         return dao.deleteMessage(id);
     }
 
-    /*
+    /**
      * Edits the message of the given id to have the given contents.
      * 
      * @return the message after edited, or null if the edit failed or the message did not exist.
@@ -58,7 +58,7 @@ public class MessageService {
         return dao.updateMessage(id, message);
     }
 
-    /*
+    /**
      * Gets all messages posted by the user with the given id.
      * 
      * @return the users messages, or an empty list if the user does not exist.
