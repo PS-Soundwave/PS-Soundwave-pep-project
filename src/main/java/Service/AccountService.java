@@ -17,7 +17,7 @@ public class AccountService {
     * Returns the account created including its id, or null if account creation failed.
     */
     public Account createAccount(String username, String password) {
-        if (username.equals("")) {
+        if (username.length() == 0) {
             return null;
         }
 
