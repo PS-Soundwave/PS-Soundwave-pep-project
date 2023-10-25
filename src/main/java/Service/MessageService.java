@@ -35,4 +35,12 @@ public class MessageService {
     public Message getMessage(int id) {
         return dao.selectMessage(id);
     }
+
+    /*
+     * Deletes message by id.
+     * @return the message deleted, or null if a message with the given id does not exist.
+     */
+    public Message deleteMessage(int id) {
+        return dao.deleteMessage(id);
+    }
 }

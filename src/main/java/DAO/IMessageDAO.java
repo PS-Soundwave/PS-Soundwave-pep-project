@@ -18,7 +18,14 @@ public interface IMessageDAO {
     public List<Message> selectMessages();
 
     /*
-     * Gets the message with the give id, or null if such message does not exist.
+     * Gets the message with the given id, or null if such message does not exist.
      */
     public Message selectMessage(int id);
+
+    /*
+     * Deletes the message with the given id.
+     * 
+     * @return The message deleted, or null if the message did not exist.
+     */
+    public Message deleteMessage(int id);
 }

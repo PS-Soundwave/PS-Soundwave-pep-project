@@ -41,8 +41,8 @@ public class AccountDAOImpl implements IAccountDAO {
         Connection conn = ConnectionUtil.getConnection();
 
         try {
-            String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
-            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            String sql = "SELECT * FROM account WHERE username = ? AND password = ?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
 
             statement.setString(1, username);
             statement.setString(2, password);
