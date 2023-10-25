@@ -110,4 +110,34 @@ public class MessageDAOImpl implements IMessageDAO {
             return null;
         }
     }
+
+    @Override
+    public Message updateMessage(int id, String message) {
+        Connection conn = ConnectionUtil.getConnection();
+
+        try {
+            String sql = "UPDATE message SET message_text = ? WHERE message_id = ?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, message);
+            statement.setInt(2, id);
+
+            if (statement.executeUpdate() > 0) {
+                sql = "SELECT * FROM message WHERE message_id = ?;";
+                statement = conn.prepareStatement(sql);
+    
+                statement.setInt(1, id);
+
+                ResultSet rs = statement.executeQuery();
+
+                if (rs.next()) {
+                    return new Message(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getLong(4));
+                }
+            }
+
+            return null;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
 }

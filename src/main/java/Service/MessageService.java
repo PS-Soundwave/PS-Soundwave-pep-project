@@ -38,9 +38,23 @@ public class MessageService {
 
     /*
      * Deletes message by id.
+     * 
      * @return the message deleted, or null if a message with the given id does not exist.
      */
     public Message deleteMessage(int id) {
         return dao.deleteMessage(id);
+    }
+
+    /*
+     * Edits the message of the given id to have the given contents.
+     * 
+     * @return the message after edited, or null if the edit failed or the message did not exist.
+     */
+    public Message editMessage(int id, String message) {
+        if (message.length() == 0 || message.length() >= 255) {
+            return null;
+        }
+
+        return dao.updateMessage(id, message);
     }
 }

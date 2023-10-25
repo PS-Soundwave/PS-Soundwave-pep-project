@@ -28,4 +28,11 @@ public interface IMessageDAO {
      * @return The message deleted, or null if the message did not exist.
      */
     public Message deleteMessage(int id);
+
+    /*
+     * Updates the message with the given id to the given message.
+     * 
+     * @return The message after being updated, or null if the message could not be updated or doesn't exist.
+     */
+    public Message updateMessage(int id, String message);
 }

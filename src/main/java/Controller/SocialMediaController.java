@@ -28,6 +28,7 @@ public class SocialMediaController {
         app.post("/messages", this::postMessages);
 
         app.get("/messages/{id}", this::getMessage);
+        app.patch("/messages/{id}", this::patchMessage);
         app.delete("/messages/{id}", this::deleteMessage);
 
         return app;
@@ -103,6 +104,26 @@ public class SocialMediaController {
             Message message = messageService.deleteMessage(id.get());
 
             if (message != null) {
+                ctx.json(message);
+            }
+        }
+    }
+
+    private void patchMessage(Context ctx) {
+        Validator<Integer> id = ctx.pathParamAsClass("id", Integer.class);
+
+        if (!id.hasValue()) {
+            ctx.status(404);
+        }
+        else {
+            Message message = ctx.bodyAsClass(Message.class);
+
+            message = messageService.editMessage(id.get(), message.getMessage_text());
+
+            if (message == null) {
+                ctx.status(400);
+            }
+            else {
                 ctx.json(message);
             }
         }
