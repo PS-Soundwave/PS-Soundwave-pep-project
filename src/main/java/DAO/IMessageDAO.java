@@ -16,4 +16,9 @@ public interface IMessageDAO {
      * Gets all messages.
      */
     public List<Message> selectMessages();
+
+    /*
+     * Gets the message with the give id, or null if such message does not exist.
+     */
+    public Message selectMessage(int id);
 }

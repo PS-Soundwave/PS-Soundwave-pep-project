@@ -6,6 +6,7 @@ import Service.AccountService;
 import Service.MessageService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import io.javalin.validation.Validator;
 
 public class SocialMediaController {
     AccountService accountService = new AccountService();
@@ -25,6 +26,8 @@ public class SocialMediaController {
 
         app.get("/messages", this::getMessages);
         app.post("/messages", this::postMessages);
+
+        app.get("/messages/{id}", this::getMessage);
 
         return app;
     }
@@ -71,6 +74,21 @@ public class SocialMediaController {
         }
         else {
             ctx.json(message);
+        }
+    }
+
+    private void getMessage(Context ctx) {
+        Validator<Integer> id = ctx.pathParamAsClass("id", Integer.class);
+
+        if (!id.hasValue()) {
+            ctx.status(404);
+        }
+        else {
+            Message message = messageService.getMessage(id.get());
+
+            if (message != null) {
+                ctx.json(message);
+            }
         }
     }
 }
