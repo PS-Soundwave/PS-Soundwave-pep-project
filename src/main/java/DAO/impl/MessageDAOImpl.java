@@ -23,13 +23,15 @@ public class MessageDAOImpl implements IMessageDAO {
         Connection conn = ConnectionUtil.getConnection();
 
         try {
-            String sql = "INSERT INTO message(posted_by, message_text, time_posted_epoch) VALUES (?, ?);";
+            String sql = "INSERT INTO message(posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?);";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             statement.setInt(1, posterId);
             statement.setString(2, message);
             statement.setLong(3, timestamp);
 
+            statement.executeUpdate();
+            
             ResultSet rs = statement.getGeneratedKeys();
 
             if (rs.next()) {
